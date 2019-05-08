@@ -1,0 +1,83 @@
+package assurityApi;
+
+import org.testng.annotations.Test;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.util.ArrayList;
+
+import org.testng.annotations.BeforeClass;
+import static io.restassured.RestAssured.given;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+
+/***
+ * Acceptance Criteria:
+	Name = "Carbon credits"
+	CanRelist = true
+	The Promotions element with Name = "Gallery" 
+	has a Description that contains the text "2x larger image"
+ */
+
+public class AssurityApiTest {
+
+	public String paramKey = "catalogue";
+	public String paramValue = "false";
+	public String reqContentType = "/6327/Details.json";
+	
+	@BeforeClass
+	public void setup() {
+		RestAssured.baseURI = "https://api.tmsandbox.co.nz";
+		RestAssured.basePath = "/v1/Categories";
+		
+		System.out.println(response().body().prettyPrint());
+		
+	}
+	
+	public Response response() {
+		return given()
+			.param(paramKey, paramValue)
+		.when()
+			.get(reqContentType);
+	}
+		
+	@Test
+	public void statusCodeVerification() {
+		response().then().statusCode(200);		
+	}
+	
+	@Test
+	public void nameEqualsVerification() {
+		response().then()
+			.assertThat()
+			.body("Name", equalTo("Carbon credits"));
+	}
+
+	@Test
+	public void canRelistIsTrue() {
+		response().then()
+			.assertThat()
+			.body("CanRelist", equalTo(true));
+	}
+
+	
+	@Test
+	public void galleryContainsText() {
+		Response resp = response().then()
+				.extract().response();
+
+		ArrayList<String> promoNames = resp.getBody().path("Promotions.Name");
+		
+		for(int index = 0; index < promoNames.size(); index++) {
+			if(promoNames.get(index).equals("Gallery")) {
+				response().then()
+				.assertThat()
+				.body("Promotions[" + index + "].Description", containsString("2x larger image"));
+			}
+		}
+		
+	}
+
+}
