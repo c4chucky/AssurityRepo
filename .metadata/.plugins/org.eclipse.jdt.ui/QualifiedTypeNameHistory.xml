@@ -5,4 +5,9 @@
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="io.restassured.response.Response"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.testng.TestListenerAdapter"/>
+    <fullyQualifiedTypeName name="com.beust.testng.TestNG"/>
+    <fullyQualifiedTypeName name="org.testng.TestNG"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.beust.jcommander.internal.Lists"/>
 </qualifiedTypeNameHistroy>
