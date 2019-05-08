@@ -89,4 +89,13 @@
 				</build>
 		</profile>
 	</profiles>
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>AssurityRepo</id>
+			<name>AssurityRepo</name>
+			<url>https://github.com/c4chucky/AssurityRepo.git</url>
+			<layout>default</layout>
+		</repository>
+  </distributionManagement>
 </project>
