@@ -1,0 +1,68 @@
+package testNG;
+
+import org.testng.annotations.Test;
+import io.restassured.RestAssured.*;
+import io.restassured.matcher.RestAssuredMatchers.*;
+import org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import org.testng.annotations.BeforeClass;
+import static io.restassured.RestAssured.given;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.module.jsv.JsonSchemaValidator.*;
+
+
+public class GetRequestDemo {
+
+	@BeforeClass
+	public void setup() {
+		String url = "https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json?catalogue=false";
+		RestAssured.baseURI = "https://api.tmsandbox.co.nz";
+		RestAssured.basePath = "/v1/Categories";
+	}
+
+	@Test
+	public void statusCodeVerification() {
+		given()
+			.param("catalogue", "false")
+		.when()
+			.get("/6327/Details.json")
+		.then()
+			.statusCode(200)
+			.assertThat()
+			//.body("Promotions[1].Name" == "Gallery");
+			.body(containsString("Gallery"))
+			.body(containsString("2x larger image"));
+
+			//get("/something").then().body(containsString("OK")).body(containsString("something else"));
+
+			
+			//.body("rows[0].elements[0].distance.text", equalTo("225 mi"))
+			//.body("Promotions[1].Description", contains("2x larger image"));
+	}
+
+	@Test
+	public void getResponseBody() {
+		//given().param("catalogue", "false").when().get("/6327/Details.json").then().statusCode(200);
+		String url = "https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json?catalogue=false";
+
+		Response res = get(url);
+		System.out.println(res.body().asString());
+		System.out.println(res.body().prettyPrint());
+		/*Response response = get("/lotto");
+		 String body = response.getBody().asString();
+		 String headerValue = response.getHeader("headerName");
+		 String cookieValue = response.getCookie("cookieName");*/
+	}
+	
+	public static Response get(String path) {
+		  return given().get(path);
+		}
+}

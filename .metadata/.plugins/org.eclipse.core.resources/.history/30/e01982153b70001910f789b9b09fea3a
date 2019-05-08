@@ -1,0 +1,11 @@
+package testNG;
+
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+
+public class GetRequestDemo {
+  @Test
+  public void statusCodeVerification() {
+	  
+  }
+}

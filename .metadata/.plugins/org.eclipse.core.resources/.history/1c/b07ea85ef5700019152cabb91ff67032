@@ -1,0 +1,109 @@
+package assurityApi;
+
+import org.testng.annotations.Test;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.util.ArrayList;
+
+import org.testng.annotations.BeforeClass;
+import static io.restassured.RestAssured.given;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+
+/***
+ * Acceptance Criteria:
+	Name = "Carbon credits"
+	CanRelist = true
+	The Promotions element with Name = "Gallery" 
+	has a Description that contains the text "2x larger image"
+ */
+
+public class AssurityApiTest {
+
+	public String paramKey = "catalogue";
+	public String paramValue = "false";
+	public String reqContentType = "/6327/Details.json";
+	
+	@BeforeClass
+	public void setup() {
+		RestAssured.baseURI = "https://api.tmsandbox.co.nz";
+		RestAssured.basePath = "/v1/Categories";
+		
+		//System.out.println(response().body().prettyPrint());
+		
+	}
+	
+	public Response response() {
+		return given()
+			.param(paramKey, paramValue)
+		.when()
+			.get(reqContentType);
+	}
+	
+	public String getValuesFromResponse() {
+		String name = response().getBody().path("Name");
+		return name;
+	}
+		
+	@Test
+	public void statusCodeVerification() {
+		response().then().statusCode(200);		
+	}
+	
+	@Test
+	public void nameEqualsVerification() {
+		response().then()
+			.assertThat()
+			.body("Name", equalTo("Carbon credits"));
+	}
+
+	@Test
+	public void canRelistVerification() {
+		response().then()
+			.assertThat()
+			.body("CanRelist", equalTo(true));
+	}
+	
+	@Test
+	public void galleryContainsTextVerification() {
+		response().then()
+			.assertThat()
+			.body("Promotions[1].Name", equalTo("Gallery"))
+			.body("Promotions[1].Description", containsString("2x larger image"));
+	}
+	
+	@Test
+	public void extractResponse() {
+		Response resp = response().then()
+				.extract().response();
+		
+		//String name = resp.getBody().path("Name").toString();
+		ArrayList<String> promoName = resp.getBody().path("Promotions.Name");
+		ArrayList<String> promoDesc = resp.getBody().path("Promotions.Description");
+		
+		for(int i=0;i<promoName.size();i++) {
+			if(promoName.get(i).equals("Gallery")) {
+				int id = resp.getBody().path("Promotions["+i+"].Id");
+				System.out.println("ID is: "+id);
+				System.out.println(promoDesc.get(i));
+				response().then()
+				.assertThat()
+				.body("Promotions["+i+"].Description", containsString("2x larger image"));
+			}
+		}
+		
+		/*
+		 * System.out.println(name); System.out.println(promoName);
+		 * System.out.println(promoName.getClass());
+		 * 
+		 * System.out.println(promoDesc); System.out.println(promoDesc.getClass());
+		 */
+		
+		
+		
+	}
+
+}
