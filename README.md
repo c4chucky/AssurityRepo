@@ -18,10 +18,10 @@ The application is written in Java 9, using the TestNG framework and REST Assure
 
 The four test should run and display the following:
 
-###===============================================
-###RunAssurityApiTest
-###Total tests run: 4, Failures: 0, Skips: 0
-###===============================================
+===============================================
+RunAssurityApiTest
+Total tests run: 4, Failures: 0, Skips: 0
+===============================================
 
 ## Test Reports:
 
