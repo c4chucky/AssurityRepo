@@ -1550,3 +1550,5 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.beanshell
 2019-05-09 20:11:07,618 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\charles\assurity-workspace\TestNG_Assurity\src\main\resources
 2019-05-09 20:11:07,620 [Worker-154: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
 2019-05-09 20:11:07,622 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\charles\assurity-workspace\TestNG_Assurity\src\test\resources
+2019-05-09 20:23:01,171 [Worker-157: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2019-05-09 20:23:01,172 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\charles\assurity-workspace\TestNG_Assurity\src\main\resources
