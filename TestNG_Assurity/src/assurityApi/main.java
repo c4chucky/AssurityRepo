@@ -8,14 +8,22 @@ import org.testng.TestNG;
 import com.beust.jcommander.internal.Lists;
 
 public class main {
-
+	
 	public static void main(String[] args) {
 		TestListenerAdapter tla = new TestListenerAdapter();
 	    TestNG testng = new TestNG();
 	    List<String> suites = Lists.newArrayList();
-	    suites.add("C:\\Users\\charles\\assurity-workspace\\TestNG_Assurity\\RunAssurityApiTest.xml");
+	    suites.add(CurrentWorkingDirectory() + "/RunAssurityApiTest.xml");
 	    testng.setTestSuites(suites);
 	    testng.run();
+	}
+	    
+	   public static String CurrentWorkingDirectory() {
+	        
+	        String cwd = System.getProperty("user.dir");
+	        System.out.println("Current working directory : " + cwd);
+
+	        return cwd;
 	}
 
 }
