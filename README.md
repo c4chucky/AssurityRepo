@@ -28,4 +28,4 @@ _Total tests run: 4, Failures: 0, Skips: 0_
 
 ## Test Reports:
 
-The test reports can be found in the "test-output" folder, as the "emailable-report.html" file.
+The test reports can be found in the "_test-output_" folder, as the "_emailable-report.html_" file.
